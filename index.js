@@ -209,16 +209,7 @@ function drawChessBoard (canvas) {
 }
 
 async function playChess () {
-  const bishopb = await load('i/bbishop.png')
-  const kingb = await load('i/bking.png')
-  const kingw = await load('i/wking.png')
-  const queenw = await load('i/wqueen.png')
-  const queenb = await load('i/bqueen.png')
-  const bishopw = await load('i/wbishop.png')
-  const knightw = await load('i/wknight.png')
-  const knightb = await load('i/bknight.png')
-  const rookw = await load('i/wrook.png')
-  const rookb = await load('i/brook.png')
+
   const pawnw = await load('i/wpawn.png')
   const pawnb = await load('i/bpawn.png')
 
@@ -227,7 +218,7 @@ async function playChess () {
 
   const canvas = document.getElementById('board')
   const ctx = canvas.getContext('2d')
-  const topy = -5
+  const topy = -5s
   const bottomy = 345
   let i = 0
   for (let x = -5; x < 395; x += 50) {
