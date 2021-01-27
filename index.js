@@ -208,61 +208,47 @@ function drawChessBoard (canvas) {
   return true
 }
 
-function playChess () {
-  const bishopb = new Image()
-  const kingb = new Image()
-  const kingw = new Image()
-  const queenw = new Image()
-  const queenb = new Image()
-  const bishopw = new Image()
-  const knightw = new Image()
-  const knightb = new Image()
-  const rookw = new Image()
-  const rookb = new Image()
-  const pawnw = new Image()
-  const pawnb = new Image()
+async function playChess () {
+  const bishopb = await load('i/bbishop.png')
+  const kingb = await load('i/bking.png')
+  const kingw = await load('i/wking.png')
+  const queenw = await load('i/wqueen.png')
+  const queenb = await load('i/bqueen.png')
+  const bishopw = await load('i/wbishop.png')
+  const knightw = await load('i/wknight.png')
+  const knightb = await load('i/bknight.png')
+  const rookw = await load('i/wrook.png')
+  const rookb = await load('i/brook.png')
+  const pawnw = await load('i/wpawn.png')
+  const pawnb = await load('i/bpawn.png')
 
-  pawnb.onload = function () {
-    const canvas = document.getElementById('board')
-    const ctx = canvas.getContext('2d')
-    const topy = -5
-    const bottomy = 345
-    for (let x = -5; x < 395; x += 50) {
-      ctx.drawImage(pawnw, x, 45)
-      ctx.drawImage(pawnb, x, 295)
-    }
+  let orderw = ['wrook', 'wknight', 'wbishop', 'wqueen', 'wking', 'wbishop', 'wknight', 'wrook']
+  let orderb = ['brook', 'bknight', 'bbishop', 'bking', 'bqueen', 'bbishop', 'bknight', 'brook']
 
-    ctx.drawImage(rookw, -5, topy)
-    ctx.drawImage(knightw, 45, topy)
-    ctx.drawImage(bishopw, 95, topy)
-    ctx.drawImage(queenw, 145, topy)
-    ctx.drawImage(kingw, 195, topy)
-    ctx.drawImage(bishopw, 245, topy)
-    ctx.drawImage(knightw, 295, topy)
-    ctx.drawImage(rookw, 345, topy)
+  const canvas = document.getElementById('board')
+  const ctx = canvas.getContext('2d')
+  const topy = -5
+  const bottomy = 345
+  let i = 0
+  for (let x = -5; x < 395; x += 50) {
+    const currentImagew = await load(`i/${orderw[i]}.png`)
+    ctx.drawImage(currentImagew,x,topy)
+    ctx.drawImage(pawnw, x, 45)
 
-    ctx.drawImage(bishopb, 95, bottomy)
-    ctx.drawImage(queenb, 195, bottomy)
-    ctx.drawImage(kingb, 145, bottomy)
-    ctx.drawImage(bishopb, 245, bottomy)
-    ctx.drawImage(knightb, 45, bottomy)
-    ctx.drawImage(knightb, 295, bottomy)
-    ctx.drawImage(rookb, 0 - 5, bottomy)
-    ctx.drawImage(rookb, 345, bottomy)
+    const currentImageb = await load(`i/${orderb[i]}.png`)
+    ctx.drawImage(currentImageb,x,bottomy)
+    ctx.drawImage(pawnb, x, 295)
+
+    i++
   }
+}
 
-  bishopb.src = 'i/bbishop.png'
-  bishopw.src = 'i/wbishop.png'
-  kingb.src = 'i/bking.png'
-  kingw.src = 'i/wking.png'
-  queenw.src = 'i/wqueen.png'
-  queenb.src = 'i/bqueen.png'
-  knightw.src = 'i/wknight.png'
-  knightb.src = 'i/bknight.png'
-  rookw.src = 'i/wrook.png'
-  rookb.src = 'i/brook.png'
-  pawnw.src = 'i/wpawn.png'
-  pawnb.src = 'i/bpawn.png'
 
-  return true
+function load(dir){
+    let value = new Promise(function (res) {
+        let currentImage = new Image();
+        currentImage.src = dir;
+        currentImage.onload = () => res(currentImage);
+    })
+    return value;
 }
