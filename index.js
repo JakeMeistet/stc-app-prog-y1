@@ -209,37 +209,35 @@ function drawChessBoard (canvas) {
 }
 
 async function playChess () {
-
   const pawnw = await load('i/wpawn.png')
   const pawnb = await load('i/bpawn.png')
 
-  let orderw = ['wrook', 'wknight', 'wbishop', 'wqueen', 'wking', 'wbishop', 'wknight', 'wrook']
-  let orderb = ['brook', 'bknight', 'bbishop', 'bking', 'bqueen', 'bbishop', 'bknight', 'brook']
+  const orderw = ['wrook', 'wknight', 'wbishop', 'wqueen', 'wking', 'wbishop', 'wknight', 'wrook']
+  const orderb = ['brook', 'bknight', 'bbishop', 'bking', 'bqueen', 'bbishop', 'bknight', 'brook']
 
   const canvas = document.getElementById('board')
   const ctx = canvas.getContext('2d')
-  const topy = -5s
+  const topy = -5
   const bottomy = 345
   let i = 0
   for (let x = -5; x < 395; x += 50) {
     const currentImagew = await load(`i/${orderw[i]}.png`)
-    ctx.drawImage(currentImagew,x,topy)
+    ctx.drawImage(currentImagew, x, topy)
     ctx.drawImage(pawnw, x, 45)
 
     const currentImageb = await load(`i/${orderb[i]}.png`)
-    ctx.drawImage(currentImageb,x,bottomy)
+    ctx.drawImage(currentImageb, x, bottomy)
     ctx.drawImage(pawnb, x, 295)
 
     i++
   }
 }
 
-
-function load(dir){
-    let value = new Promise(function (res) {
-        let currentImage = new Image();
-        currentImage.src = dir;
-        currentImage.onload = () => res(currentImage);
-    })
-    return value;
+function load (dir) {
+  const value = new Promise(function (res) {
+    const currentImage = new Image()
+    currentImage.src = dir
+    currentImage.onload = () => res(currentImage)
+  })
+  return value
 }
